@@ -1,4 +1,7 @@
-workbox.core.setCacheNameDetails({ prefix: 'next-ss' })
+workbox.core.setCacheNameDetails({
+	prefix: 'el-crm',
+	suffix: 'v1'
+})
 
 workbox.skipWaiting()
 workbox.clientsClaim()
