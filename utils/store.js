@@ -10,7 +10,7 @@ const enhancers = compose(
 
 const createStoreWithMiddleware = applyMiddleware()(createStore)
 
-export default function configureStore(initialState, { isServer }) {
+export default function makeStore(initialState, { isServer }) {
 	if (isServer) {
 		initialState = initialState || { latestReadId: 0 }
 
@@ -22,7 +22,7 @@ export default function configureStore(initialState, { isServer }) {
 
 		const persistConfig = {
 			key: 'nextjs',
-			whitelist: ['todos', 'chats'], // make sure it does not clash with server keys
+			whitelist: ['chats'], // make sure it does not clash with server keys
 			storage
 		}
 
