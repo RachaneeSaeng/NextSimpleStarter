@@ -16,7 +16,7 @@
 	"scripts": {
 		"dev": "node server",
 		"build": "next build",
-		"start": "set NODE_ENV=production && node server"
+		"start": "npm run build && node server"
 	},
 	"devDependencies": {
 		"workbox-webpack-plugin": "^3.4.1"
