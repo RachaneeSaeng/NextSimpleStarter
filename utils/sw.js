@@ -18,6 +18,7 @@ workbox.precaching.suppressWarnings()
  * (https://developers.google.com/web/tools/workbox/modules/workbox-strategies)
  */
 
+// precache
 workbox.precaching.precacheAndRoute(
 	self.__precacheManifest.filter(
 		m =>
@@ -28,23 +29,34 @@ workbox.precaching.precacheAndRoute(
 	{}
 )
 
+// fonts
 workbox.routing.registerRoute(
-	/[.](png|jpg|css)/,
-	workbox.strategies.cacheFirst({
-		cacheName: 'assets-cache',
-		cacheableResponse: {
-			statuses: [0, 200]
-		}
-	}),
-	'GET'
+	/^https:\/\/fonts\.googleapis\.com/,
+	workbox.strategies.staleWhileRevalidate({
+		cacheName: 'google-fonts-stylesheets'
+	})
 )
 
+// javascript and css
 workbox.routing.registerRoute(
-	/^https:\/\/code\.getmdl\.io.*/,
+	/\.(?:js|css)$/,
+	workbox.strategies.staleWhileRevalidate({
+		cacheName: 'static-resources'
+	})
+)
+
+// images
+workbox.routing.registerRoute(
+	/\.(?:png|gif|jpg|jpeg|svg)$/,
 	workbox.strategies.cacheFirst({
-		cacheName: 'lib-cache'
-	}),
-	'GET'
+		cacheName: 'images',
+		plugins: [
+			new workbox.expiration.Plugin({
+				maxEntries: 60,
+				maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+			})
+		]
+	})
 )
 
 // Fetch the root route as fast as possible
