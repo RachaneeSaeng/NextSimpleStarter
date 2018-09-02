@@ -3,7 +3,7 @@
  * Need more? check out:
  * https://github.com/GoogleChrome/sw-precache/blob/master/demo/app/js/service-worker-registration.js
  */
-
+console.log(process.env.NODE_ENV);
 if (
 	process.env.NODE_ENV === 'production' &&
 	typeof window !== 'undefined' &&
