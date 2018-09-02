@@ -4,13 +4,13 @@ import App, { Container } from 'next/app'
 import withRedux from 'next-redux-wrapper'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import configureStore from '../utils/store'
+import makeStore from '../utils/store'
 
 const dev =
 	typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'
 
 /* debug to log how the store is being used */
-export default withRedux(configureStore, { debug: dev })(
+export default withRedux(makeStore, { debug: dev })(
 	class MyApp extends App {
 		static async getInitialProps({ Component, ctx }) {
 			return {
