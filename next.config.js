@@ -17,6 +17,11 @@ module.exports = {
 				return entry
 			})
 
+		 // Fixes npm packages that depend on `fs` module
+		 config.node = {
+			fs: 'empty'
+		  }
+		  
 		/* Enable only in Production */
 		if (!dev) {
 			// Service Worker

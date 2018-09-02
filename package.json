@@ -14,7 +14,7 @@
 		"redux": "^4.0.0"
 	},
 	"scripts": {
-		"dev": "node server",
+		"dev": "next",
 		"build": "next build",
 		"start": "set NODE_ENV=production && node server"
 	},
