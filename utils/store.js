@@ -10,5 +10,31 @@ const enhancers = compose(
 
 const createStoreWithMiddleware = applyMiddleware()(createStore)
 
-export default initialState =>
-	createStoreWithMiddleware(rootReducer, initialState, enhancers)
+export default function configureStore(initialState, { isServer }) {
+	if (isServer) {
+		initialState = initialState || { latestReadId: 0 }
+
+		return createStoreWithMiddleware(rootReducer, initialState, enhancers)
+	} else {
+		// we need it only on client side
+		const { persistStore, persistReducer } = require('redux-persist')
+		const storage = require('redux-persist/lib/storage').default
+
+		const persistConfig = {
+			key: 'nextjs',
+			whitelist: ['todos', 'chats'], // make sure it does not clash with server keys
+			storage
+		}
+
+		const persistedReducer = persistReducer(persistConfig, rootReducer)
+		const store = createStoreWithMiddleware(
+			persistedReducer,
+			initialState,
+			enhancers
+		)
+
+		store.__persistor = persistStore(store) // Nasty hack
+
+		return store
+	}
+}

@@ -2,13 +2,15 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import App, { Container } from 'next/app'
 import withRedux from 'next-redux-wrapper'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import initStore from '../utils/store'
+import configureStore from '../utils/store'
+
+const dev =
+	typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'
 
 /* debug to log how the store is being used */
-export default withRedux(initStore, {
-	debug: typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'
-})(
+export default withRedux(configureStore, { debug: dev })(
 	class MyApp extends App {
 		static async getInitialProps({ Component, ctx }) {
 			return {
@@ -26,7 +28,12 @@ export default withRedux(initStore, {
 			return (
 				<Container>
 					<Provider store={store}>
-						<Component {...pageProps} />
+						<PersistGate
+							persistor={store.__persistor}
+							loading={<div>Loading</div>}
+						>
+							<Component {...pageProps} />
+						</PersistGate>
 					</Provider>
 				</Container>
 			)

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { addTodo, removeTodo } from '../actions/todo'
+import { setLatestReadId } from '../actions/chats'
 import TodoItem from './TodoItem'
 
 class Todo extends React.Component {
@@ -20,9 +21,16 @@ class Todo extends React.Component {
 		this.props.removeTodo(todo)
 	}
 
+	setLatestReadId = id => {
+		var latestId = this.props.chats.latestReadId || 0
+		this.props.setLatestReadId(latestId + id)
+	}
+
 	render() {
 		return (
 			<div className="mdl-card mdl-shadow--2dp">
+				<button onClick={e => this.setLatestReadId(2)}>Set Client State</button>
+
 				<form onSubmit={this.addTodos}>
 					<div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 						<input
@@ -78,6 +86,6 @@ class Todo extends React.Component {
 }
 
 export default connect(
-	({ todos }) => ({ todos }),
-	{ addTodo, removeTodo }
+	({ todos, chats }) => ({ todos, chats }),
+	{ addTodo, removeTodo, setLatestReadId }
 )(Todo)
