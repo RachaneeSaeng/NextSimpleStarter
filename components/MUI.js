@@ -14,7 +14,7 @@ class MUI extends React.Component {
 			<Button
 				variant="contained"
 				color="primary"
-				onClick={e => this.setLatestReadId(1)}
+				onClick={this.setLatestReadId.bind(this, 1)}
 			>
 				Set Client State
 			</Button>
