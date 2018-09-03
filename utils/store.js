@@ -22,7 +22,7 @@ export default function makeStore(initialState, { isServer }) {
 
 		const persistConfig = {
 			key: 'nextjs',
-			whitelist: ['chats'], // make sure it does not clash with server keys
+			whitelist: ['chats', 'line_tokens'], // make sure it does not clash with server keys
 			storage
 		}
 
