@@ -1,4 +1,4 @@
-import { SET_LATEST_READ } from './'
+import { SET_LATEST_READ } from '.'
 
 export function setLatestReadId(latestReadId) {
 	return {

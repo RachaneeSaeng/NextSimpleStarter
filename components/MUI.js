@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setLatestReadId } from '../actions/chats'
+import { setLatestReadId } from '../actions/chat'
 import Button from '@material-ui/core/Button'
 
 class MUI extends React.Component {
