@@ -6,16 +6,28 @@ import LineLogin from './LineLogin'
 import ChatHomepage from './ChatHomepage'
 import Button from '@material-ui/core/Button'
 
-class Homepage extends React.Component {
+class Layout extends React.Component {
+	componentWillMount() {
+		this.props.setLineAuthStatus(true)
+	}
+
 	toggleLineAuthStatus() {
 		var isAuthorized = this.props.lines.isAuthorized || false
 		this.props.setLineAuthStatus(!isAuthorized)
 	}
 
 	render() {
+		const { children } = this.props
 		return (
 			<div>
-				{this.props.lines.isAuthorized ? <ChatHomepage /> : <LineLogin />}
+				{children}
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={this.toggleLineAuthStatus.bind(this)}
+				>
+					Toggle line authen status
+				</Button>
 			</div>
 		)
 	}
@@ -24,4 +36,4 @@ class Homepage extends React.Component {
 export default connect(
 	({ chats, lines, line_tokens }) => ({ chats, lines, line_tokens }),
 	{ setLineAuthStatus, setLineAccessToken }
-)(Homepage)
+)(Layout)

@@ -1,6 +1,7 @@
 import 'isomorphic-fetch'
 import React from 'react'
 import { connect } from 'react-redux'
+import Layout from '../components/Layout'
 
 import Homepage from '../components/Homepage'
 
@@ -18,9 +19,9 @@ class Index extends React.Component {
 	render() {
 		const { stars } = this.props
 		return (
-			<div>
+			<Layout>
 				<Homepage />
-			</div>
+			</Layout>
 		)
 	}
 }
