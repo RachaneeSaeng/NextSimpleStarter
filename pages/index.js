@@ -2,9 +2,7 @@ import 'isomorphic-fetch'
 import React from 'react'
 import { connect } from 'react-redux'
 
-import Fork from '../components/Fork'
-import Todo from '../components/Todo'
-import MUI from '../components/MUI'
+import Homepage from '../components/Homepage'
 
 class Index extends React.Component {
 	static async getInitialProps({ store }) {
@@ -21,11 +19,7 @@ class Index extends React.Component {
 		const { stars } = this.props
 		return (
 			<div>
-				<Fork stars={stars} />
-				<div>
-					<MUI title="test title" description="test meterial ui" />
-					<Todo />
-				</div>
+				<Homepage />
 			</div>
 		)
 	}

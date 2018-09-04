@@ -16,9 +16,9 @@
 		"redux-persist": "^5.10.0"
 	},
 	"scripts": {
-		"dev": "node server",
+		"dev": "next",
 		"build": "next build",
-		"start": "npm run build && node server"
+		"start": "next start"
 	},
 	"devDependencies": {
 		"workbox-webpack-plugin": "^3.4.1"
