@@ -11,25 +11,9 @@ class Layout extends React.Component {
 		this.props.setLineAuthStatus(true)
 	}
 
-	toggleLineAuthStatus() {
-		var isAuthorized = this.props.lines.isAuthorized || false
-		this.props.setLineAuthStatus(!isAuthorized)
-	}
-
 	render() {
 		const { children } = this.props
-		return (
-			<div>
-				{children}
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={this.toggleLineAuthStatus.bind(this)}
-				>
-					Toggle line authen status
-				</Button>
-			</div>
-		)
+		return <div>{children}</div>
 	}
 }
 
