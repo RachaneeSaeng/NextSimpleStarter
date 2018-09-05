@@ -1,33 +1,32 @@
 import React from 'react'
 import Error from 'next/error'
 import { connect } from 'react-redux'
-import LineLogin from '../components/LineLogin'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import ChatHistory from '../components/ChatHistory'
 
 class Chat extends React.Component {
 	static async getInitialProps({ req, res, query }) {
-		var storyId
+		var userId
 		try {
-			storyId = query.id
-
-			if (!/[0-9]+/.test(storyId)) throw 'Story ID must be numeric'
+			userId = query.userid
+			if (!/[0-9]+/.test(userId)) throw 'userid must be numeric'
 		} catch (e) {
-			storyId = undefined
+			userId = undefined
 		}
 
-		return { storyId }
+		return { userId }
 	}
 
 	render() {
-		const { storyId } = this.props
-		if (typeof storyId === 'undefined' || !storyId)
+		const { userId } = this.props
+		if (typeof userId === 'undefined' || !userId)
 			return <Error statusCode={503} />
 
 		return (
 			<Layout>
 				{this.props.lines.isAuthorized ? (
-					<h1>Viewing chat history of user {storyId}</h1>
+					<ChatHistory userId={userId} />
 				) : (
 					<Link href={`/`} prefetch>
 						<a>You have not logged in yet. Go back to homepage to login.</a>
