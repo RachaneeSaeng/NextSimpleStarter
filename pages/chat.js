@@ -14,7 +14,6 @@ class Chat extends React.Component {
 		} catch (e) {
 			userId = undefined
 		}
-
 		return { userId }
 	}
 
