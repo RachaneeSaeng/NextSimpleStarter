@@ -1,9 +1,8 @@
-import 'isomorphic-fetch'
 import React from 'react'
 import { connect } from 'react-redux'
-import Layout from '../components/Layout'
-import LineLogin from '../components/LineLogin'
-import Router from 'next/router'
+import { setLatestReadId } from '../actions/chat'
+import { setLineAuthStatus } from '../actions/line'
+import { setLineAccessToken } from '../actions/line_token'
 
 import GraphqlService from '../providers/graphql/graphql-service'
 import LineMessagingService from '../providers/line/line-messaging-service'
@@ -17,30 +16,31 @@ const lineMessagingService = new LineMessagingService({
 		process.env.LINE_MESSAGING_SECRET || '82ab29e5586ec2d769bca233487ca1f0'
 })
 
-class Index extends React.Component {
+class ChatHomepage extends React.Component {
 	static async getInitialProps(ctx) {
 		var chats = await graphqlService.fetchAllLineMessages()
-		var src = await lineMessagingService.get_message_content('8530379865968')
 		var profile = await lineMessagingService.get_user_profile(
 			'U3c95fef18e08b1635cd6cc1edbf443f6'
 		)
+
+		//console.log(imgData)
+		//imgData = 'data:image/jpeg;base64,' + btoa(imgData)
 		return {
 			allChats: chats,
-			userProfile: profile,
-			imgSrc: src
+			userProfile: profile
 		}
 	}
 
 	render() {
-		var { imgSrc } = this.props
-		console.log(this.props)
 		return (
-			<Layout>
-				<LineLogin />
-				<img src={imgSrc} />
-			</Layout>
+			<div>
+				<h1>Chat Homepage</h1>
+			</div>
 		)
 	}
 }
 
-export default connect(({ lines }) => ({ lines }))(Index)
+export default connect(
+	({ chats, lines, line_tokens }) => ({ chats, lines, line_tokens }),
+	{ setLatestReadId, setLineAuthStatus, setLineAccessToken }
+)(ChatHomepage)

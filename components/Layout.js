@@ -4,7 +4,8 @@ import { setLineAuthStatus } from '../actions/line'
 import { setLineAccessToken } from '../actions/line_token'
 
 class Layout extends React.Component {
-	componentWillMount() {
+	constructor(props) {
+		super(props)
 		this.props.setLineAuthStatus(true)
 	}
 
