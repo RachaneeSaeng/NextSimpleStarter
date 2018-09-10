@@ -2,7 +2,6 @@ import React from 'react'
 import Error from 'next/error'
 import { connect } from 'react-redux'
 import Link from 'next/link'
-import Layout from '../components/Layout'
 import ChatHistory from '../components/ChatHistory'
 
 class Chat extends React.Component {
@@ -23,7 +22,7 @@ class Chat extends React.Component {
 			return <Error statusCode={503} />
 
 		return (
-			<Layout>
+			<div>
 				{this.props.lines.isAuthorized ? (
 					<ChatHistory userId={userId} />
 				) : (
@@ -31,7 +30,7 @@ class Chat extends React.Component {
 						<a>You have not logged in yet. Go back to homepage to login.</a>
 					</Link>
 				)}{' '}
-			</Layout>
+			</div>
 		)
 	}
 }

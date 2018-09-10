@@ -1,37 +1,46 @@
 import 'isomorphic-fetch'
 import React from 'react'
 import { connect } from 'react-redux'
-import Layout from '../components/Layout'
-import LineLogin from '../components/LineLogin'
 import GraphqlService from '../providers/graphql/graphql-service'
 import LineMessagingService from '../providers/line/line-messaging-service'
+import { setLineAuthStatus } from '../actions/line'
+import Router from 'next/router'
 
 const graphqlService = new GraphqlService()
 const lineMessagingService = new LineMessagingService()
 
 class Index extends React.Component {
-	static async getInitialProps(ctx) {
-		var chats = await graphqlService.fetchAllLineMessages()
-		var src = await lineMessagingService.get_message_content('8530379865968')
-		var profile = await lineMessagingService.get_user_profile(
-			'U3c95fef18e08b1635cd6cc1edbf443f6'
-		)
-		return {
-			allChats: chats,
-			userProfile: profile,
-			imgSrc: src
-		}
+	static async getInitialProps({ req, res, store }) {
+		/* check access token here (from req.session )
+		if access token is null or expire then redirect to login page, else redirect to Chathomepage
+		*/
+		var isAuthorized = true // to modify later
+		store.dispatch(setLineAuthStatus(isAuthorized))
+
+		// const redirectTo = isAuthorized ? '/homepage' : '/login'
+		// if (res) {
+		// 	res.writeHead(302, {
+		// 		Location: redirectTo
+		// 	})
+		// 	res.end()
+		// } else {
+		// 	Router.push(redirectTo)
+		// }
+
+		return {}
+	}
+
+	constructor(props) {
+		super(props)
+		this.props.setLineAuthStatus(true)
 	}
 
 	render() {
-		console.log(this.props)
-		return (
-			<Layout>
-				<LineLogin />
-				<img src={this.props.imgSrc} />
-			</Layout>
-		)
+		return <div>Index</div>
 	}
 }
 
-export default connect(({ lines }) => ({ lines }))(Index)
+export default connect(
+	({ lines }) => ({ lines }),
+	{ setLineAuthStatus }
+)(Index)

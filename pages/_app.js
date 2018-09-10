@@ -11,7 +11,7 @@ const dev =
 
 /* debug to log how the store is being used */
 export default withRedux(makeStore, { debug: dev })(
-	class MyApp extends App {
+	class extends App {
 		static async getInitialProps({ Component, ctx }) {
 			return {
 				pageProps: {

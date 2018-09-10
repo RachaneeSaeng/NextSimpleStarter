@@ -1,7 +1,7 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 
-export default class MyDocument extends Document {
+export default class extends Document {
 	render() {
 		return (
 			<html style={{ background: '#EEE', color: '#444' }}>
