@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { setLatestReadId } from '../actions/chat'
 import { setLineAuthStatus } from '../actions/line'
 import { setLineAccessToken } from '../actions/line_token'
+import Button from '@material-ui/core/Button'
+import Link from 'next/link'
+import Router from 'next/router'
 
-class Login extends React.Component {
-	static async getInitialProps(ctx) {}
-
+class LineLogin extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Line Login</h1>
+				<h1>Line login</h1>
 			</div>
 		)
 	}
@@ -19,4 +20,4 @@ class Login extends React.Component {
 export default connect(
 	({ chats, lines, line_tokens }) => ({ chats, lines, line_tokens }),
 	{ setLatestReadId, setLineAuthStatus, setLineAccessToken }
-)(Login)
+)(LineLogin)
