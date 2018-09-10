@@ -1,10 +1,7 @@
 import ApolloClient from 'apollo-boost'
 
-//var graphqlUrl = process.env.GraphqlUrl || 'http://localhost:3100/graphql'
-var graphqlUrl = 'https://api.elephant.loans/graphql'
-
 class GraphqlClient {
-	constructor() {
+	constructor(graphqlUrl) {
 		this.graphqlClient = new ApolloClient({
 			uri: graphqlUrl
 		})

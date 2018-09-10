@@ -1,12 +1,12 @@
 import GraphqlQueryBuilder from './graphql-query-builder'
 import GraphqlClient from './graphql-client'
 
-//var graphqlUrl = process.env.GraphqlUrl || 'http://localhost:3100/graphql'
-var graphqlUrl = 'https://api.elephant.loans/graphql'
+var graphqlUrl =
+	process.env.GraphqlUrl || 'https://stg.api.elephant.loans/graphql'
 
 export default class GraphqlService {
 	constructor() {
-		this.graphqlClient = new GraphqlClient()
+		this.graphqlClient = new GraphqlClient(graphqlUrl)
 		this.graphqlQueryBuilder = new GraphqlQueryBuilder()
 	}
 

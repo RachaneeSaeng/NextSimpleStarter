@@ -8,13 +8,7 @@ import GraphqlService from '../providers/graphql/graphql-service'
 import LineMessagingService from '../providers/line/line-messaging-service'
 
 const graphqlService = new GraphqlService()
-const lineMessagingService = new LineMessagingService({
-	channel_access_token:
-		process.env.LINE_MESSAGING_TOKEN ||
-		'FVk42L1S6K2ttuQNUz9/B1Db+tfCKvh3zcGlXjAj5RcEkGP395jK3ztlLLeX/pte5V5q670cmwBhcK3yTFSMvsjIWG+816Q2lgAJQYHsKi7ezovlbmoTWS2Nliw5sCzTzbqsi1sxYf1t6t/3oUOvtAdB04t89/1O/w1cDnyilFU=',
-	channel_secret:
-		process.env.LINE_MESSAGING_SECRET || '82ab29e5586ec2d769bca233487ca1f0'
-})
+const lineMessagingService = new LineMessagingService()
 
 class ChatHomepage extends React.Component {
 	static async getInitialProps(ctx) {

@@ -7,11 +7,11 @@ class Layout extends React.Component {
 	constructor(props) {
 		super(props)
 		this.props.setLineAuthStatus(true)
+		console.log(this.props)
 	}
 
 	render() {
-		const { children } = this.props
-		return <div>{children}</div>
+		return <div>{this.props.children}</div>
 	}
 }
 
