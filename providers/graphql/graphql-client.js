@@ -13,13 +13,13 @@ class GraphqlClient {
 			.then(result => {
 				if (result.errors) {
 					console.log(result.errors)
-					return null
+					return undefined
 				}
 				return result.data
 			})
 			.catch(err => {
 				console.log(err)
-				return null
+				return undefined
 			})
 	}
 }

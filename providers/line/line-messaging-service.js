@@ -26,6 +26,7 @@ export default class LineMessagingService {
 			})
 			.catch(err => {
 				console.log(err)
+				return undefined
 			})
 	}
 
@@ -54,6 +55,7 @@ export default class LineMessagingService {
 			})
 			.catch(err => {
 				console.log(err)
+				return undefined
 			})
 	}
 }
