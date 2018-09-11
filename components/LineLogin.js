@@ -8,6 +8,10 @@ import Link from 'next/link'
 import Router from 'next/router'
 
 class LineLogin extends React.Component {
+	componentDidMount() {
+		console.log('Line login')
+	}
+
 	render() {
 		return (
 			<div>

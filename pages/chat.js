@@ -6,11 +6,10 @@ import ChatHistory from '../components/ChatHistory'
 
 export default connect(({ lines }) => ({ lines }))(
 	class extends React.Component {
-		static async getInitialProps({ req, res, query }) {
+		static async getInitialProps({ query }) {
 			var userId
 			try {
 				userId = query.userid
-				if (!/[0-9]+/.test(userId)) throw 'userid must be numeric'
 			} catch (e) {
 				userId = undefined
 			}
@@ -18,14 +17,13 @@ export default connect(({ lines }) => ({ lines }))(
 		}
 
 		render() {
-			const { userId } = this.props
-			if (typeof userId === 'undefined' || !userId)
+			if (typeof this.props.userId === 'undefined' || !this.props.userId)
 				return <Error statusCode={503} />
 
 			return (
 				<div>
 					{this.props.lines.isAuthorized ? (
-						<ChatHistory userId={userId} />
+						<ChatHistory userId={this.props.userId} />
 					) : (
 						<Link href={`/`} prefetch>
 							<a>You have not logged in yet. Go back to homepage to login.</a>
