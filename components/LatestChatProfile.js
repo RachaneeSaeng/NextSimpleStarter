@@ -2,12 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Link from 'next/link'
 import GraphqlService from '../providers/graphql/graphql-service'
+import { formatTimeStamp } from '../utils/helper'
 
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
+import Button from '@material-ui/core/Button'
 
 const styles = {
 	row: {
@@ -15,14 +17,12 @@ const styles = {
 		justifyContent: 'space-between',
 		alignItems: 'center'
 	},
-	inlineDiv: {
-		display: 'inline'
+	button: {
+		textTransform: 'none'
 	},
 	avatar: {
-		marginRight: 8,
-		display: 'inline-block'
-	},
-	bigAvatar: {
+		marginRight: 5,
+		display: 'inline-block',
 		width: 40,
 		height: 40
 	}
@@ -45,31 +45,6 @@ class LatestChatProfile extends React.Component {
 		this.setState({ userProfile: profile })
 	}
 
-	formatTimeStamp(timeStamp) {
-		var dateTime = new Date('01/01/1970')
-		dateTime.setMilliseconds(dateTime.getMilliseconds() + timeStamp)
-		dateTime.setMinutes(dateTime.getMinutes() - dateTime.getTimezoneOffset()) // to local time
-
-		const date = '0' + dateTime.getDate()
-		const month = '0' + (dateTime.getMonth() + 1)
-		const year = dateTime.getFullYear()
-		var hours = dateTime.getHours()
-		var minutes = '0' + dateTime.getMinutes()
-
-		// Will display time in dd/mm/yy 10:30 format
-		var formattedTime =
-			date.substr(-2) +
-			'/' +
-			month.substr(-2) +
-			'/' +
-			year.toString().substr(-2) +
-			' ' +
-			hours +
-			':' +
-			minutes.substr(-2)
-		return formattedTime
-	}
-
 	render() {
 		const { classes } = this.props
 		return (
@@ -80,13 +55,15 @@ class LatestChatProfile extends React.Component {
 							<Avatar
 								alt="Adelle Charles"
 								src={this.state.userProfile.picture_url}
-								className={classNames(classes.avatar, classes.bigAvatar)}
+								className={classes.avatar}
 							/>
 							<Link href={`/chat?userid=${this.props.lineId}`} prefetch>
-								<a>{this.state.userProfile.display_name}</a>
+								<Button className={classes.button}>
+									<a>{this.state.userProfile.display_name}</a>
+								</Button>
 							</Link>
 						</div>
-						<div>{this.formatTimeStamp(this.props.latestTime)}</div>
+						<div>{formatTimeStamp(this.props.latestTime)}</div>
 					</div>
 				)}
 			</div>
