@@ -7,23 +7,23 @@ import ChatHistory from '../components/ChatHistory'
 export default connect(({ lines }) => ({ lines }))(
 	class extends React.Component {
 		static async getInitialProps({ query }) {
-			var userId
+			var lineId
 			try {
-				userId = query.userid
+				lineId = query.lineId
 			} catch (e) {
-				userId = undefined
+				lineId = undefined
 			}
-			return { userId }
+			return { lineId }
 		}
 
 		render() {
-			if (typeof this.props.userId === 'undefined' || !this.props.userId)
+			if (typeof this.props.lineId === 'undefined' || !this.props.lineId)
 				return <Error statusCode={503} />
 
 			return (
 				<div>
-					{this.props.lines.isAuthorized ? (
-						<ChatHistory userId={this.props.userId} />
+					{true ? (
+						<ChatHistory lineId={this.props.lineId} />
 					) : (
 						<Link href={`/`} prefetch>
 							<a>You have not logged in yet. Go back to homepage to login.</a>

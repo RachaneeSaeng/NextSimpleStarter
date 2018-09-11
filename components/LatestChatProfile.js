@@ -40,8 +40,8 @@ class LatestChatProfile extends React.Component {
 		this.getUserProfile(this.props.lineId)
 	}
 
-	async getUserProfile(lineid) {
-		var profile = await this.graphqlService.fetchLineUserProfile(lineid)
+	async getUserProfile(lineId) {
+		var profile = await this.graphqlService.fetchLineUserProfile(lineId)
 		this.setState({ userProfile: profile })
 	}
 
@@ -53,11 +53,11 @@ class LatestChatProfile extends React.Component {
 					<div className={classes.row}>
 						<div className={classes.row}>
 							<Avatar
-								alt="Adelle Charles"
+								alt={this.state.userProfile.display_name}
 								src={this.state.userProfile.picture_url}
 								className={classes.avatar}
 							/>
-							<Link href={`/chat?userid=${this.props.lineId}`} prefetch>
+							<Link href={`/chat?lineId=${this.props.lineId}`} prefetch>
 								<Button className={classes.button}>
 									<a>{this.state.userProfile.display_name}</a>
 								</Button>
@@ -72,8 +72,8 @@ class LatestChatProfile extends React.Component {
 }
 
 LatestChatProfile.propTypes = {
-	lineId: string,
-	latestTime: string,
+	lineId: PropTypes.string.isRequired,
+	latestTime: PropTypes.string.isRequired,
 	classes: PropTypes.object.isRequired
 }
 
