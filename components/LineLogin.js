@@ -3,9 +3,6 @@ import { connect } from 'react-redux'
 import { setLatestReadId } from '../actions/chat'
 import { setLineAuthStatus } from '../actions/line'
 import { setLineAccessToken } from '../actions/line_token'
-import Button from '@material-ui/core/Button'
-import Link from 'next/link'
-import Router from 'next/router'
 
 class LineLogin extends React.Component {
 	componentDidMount() {

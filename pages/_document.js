@@ -4,7 +4,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 export default class extends Document {
 	render() {
 		return (
-			<html style={{ background: '#EEE', color: '#444' }}>
+			<html style={{ background: '#FFF', color: '#444' }}>
 				<Head>
 					<meta
 						name="viewport"
@@ -13,16 +13,12 @@ export default class extends Document {
 					<meta name="theme-color" content="#673ab7" />
 					<link rel="manifest" href="static/manifest.json" />
 					<link rel="icon" href="static/img/favicon.ico" />
-					{/* <link
-						rel="stylesheet"
-						href="https://code.getmdl.io/1.3.0/material.deep_purple-blue.min.css"
-					/> */}
-					<title>Todo App</title>
+
+					<title>CRM of elephant.Loans</title>
 				</Head>
 				<body>
 					<Main />
 					<NextScript />
-					{/* <script defer src="https://code.getmdl.io/1.3.0/material.min.js" /> */}
 				</body>
 			</html>
 		)

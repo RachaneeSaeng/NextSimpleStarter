@@ -1,18 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import Link from 'next/link'
 import GraphqlService from '../providers/graphql/graphql-service'
-import { formatTimeStamp } from '../utils/helper'
-
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import classNames from 'classnames'
-import Avatar from '@material-ui/core/Avatar'
-import Chip from '@material-ui/core/Chip'
-import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Dialog from '@material-ui/core/Dialog'
 
 const styles = theme => ({
 	progress: {
@@ -24,7 +15,7 @@ class ImageContent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.graphqlService = new GraphqlService()
-		this.state = { imgSrc: undefined }
+		this.state = { imgSrc: undefined, open: false }
 	}
 
 	componentWillMount() {
@@ -36,12 +27,36 @@ class ImageContent extends React.Component {
 		this.setState({ imgSrc: imgSrc })
 	}
 
+	handleClickOpen() {
+		this.setState({
+			open: true
+		})
+	}
+
+	handleClose() {
+		this.setState({ open: false })
+	}
+
 	render() {
 		const { classes } = this.props
 		return (
 			<div>
 				{this.state.imgSrc ? (
-					<img src={this.state.imgSrc} width="200" />
+					<div>
+						<img
+							src={this.state.imgSrc}
+							width="200"
+							style={{ cursor: 'pointer' }}
+							onClick={this.handleClickOpen.bind(this)}
+						/>
+						<Dialog
+							maxWidth="lg"
+							onClick={this.handleClose.bind(this)}
+							open={this.state.open}
+						>
+							<img src={this.state.imgSrc} width="100%" />
+						</Dialog>
+					</div>
 				) : (
 					<CircularProgress className={classes.progress} size={30} />
 				)}

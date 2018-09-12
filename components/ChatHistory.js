@@ -3,13 +3,10 @@ import { connect } from 'react-redux'
 import { setLatestReadId } from '../actions/chat'
 import { setLineAuthStatus } from '../actions/line'
 import { setLineAccessToken } from '../actions/line_token'
-import Button from '@material-ui/core/Button'
-import Link from 'next/link'
-import Router from 'next/router'
 import GraphqlService from '../providers/graphql/graphql-service'
 import PropTypes from 'prop-types'
 import ChatRecord from './ChatRecord'
-import { formatTimeStamp } from '../utils/helper'
+import Typography from '@material-ui/core/Typography'
 
 class ChatHistory extends React.Component {
 	constructor(props) {
@@ -37,19 +34,17 @@ class ChatHistory extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>
-					Chat history of <i>{this.state.userProfile.display_name}</i>
-				</h1>
-				<ul>
-					{this.state.chats &&
-						this.state.chats.map((chat, i) => (
-							<ChatRecord
-								key={i}
-								userProfile={this.state.userProfile}
-								chatDetail={chat}
-							/>
-						))}
-				</ul>
+				<Typography variant="headline" style={{ textAlign: 'center' }}>
+					{this.state.userProfile.display_name}
+				</Typography>
+				{this.state.chats &&
+					this.state.chats.map((chat, i) => (
+						<ChatRecord
+							key={i}
+							userProfile={this.state.userProfile}
+							chatDetail={chat}
+						/>
+					))}
 			</div>
 		)
 	}

@@ -1,15 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import Link from 'next/link'
 import GraphqlService from '../providers/graphql/graphql-service'
 import { formatTimeStamp } from '../utils/helper'
 
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
-import Chip from '@material-ui/core/Chip'
 import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = {
 	row: {
@@ -33,7 +31,7 @@ class LatestChatProfile extends React.Component {
 		super(props)
 		this.graphqlService = new GraphqlService()
 
-		this.state = { userProfile: {} }
+		this.state = { userProfile: {}, doneFetching: false }
 	}
 
 	componentWillMount() {
@@ -42,32 +40,37 @@ class LatestChatProfile extends React.Component {
 
 	async getUserProfile(lineId) {
 		var profile = await this.graphqlService.fetchLineUserProfile(lineId)
-		this.setState({ userProfile: profile })
+		this.setState({ userProfile: profile, doneFetching: true })
 	}
 
 	render() {
 		const { classes } = this.props
-		return (
-			<div>
-				{this.state.userProfile && (
-					<div className={classes.row}>
+
+		if (this.state.doneFetching) {
+			return (
+				<div>
+					{this.state.userProfile && (
 						<div className={classes.row}>
-							<Avatar
-								alt={this.state.userProfile.display_name}
-								src={this.state.userProfile.picture_url}
-								className={classes.avatar}
-							/>
-							<Link href={`/chat?lineId=${this.props.lineId}`} prefetch>
-								<Button className={classes.button}>
-									<a>{this.state.userProfile.display_name}</a>
-								</Button>
-							</Link>
+							<div className={classes.row}>
+								<Avatar
+									alt={this.state.userProfile.display_name}
+									src={this.state.userProfile.picture_url}
+									className={classes.avatar}
+								/>
+								<Link href={`/chat?lineId=${this.props.lineId}`} prefetch>
+									<Button className={classes.button}>
+										<a>{this.state.userProfile.display_name}</a>
+									</Button>
+								</Link>
+							</div>
+							<div>{formatTimeStamp(this.props.latestTime)}</div>
 						</div>
-						<div>{formatTimeStamp(this.props.latestTime)}</div>
-					</div>
-				)}
-			</div>
-		)
+					)}
+				</div>
+			)
+		} else {
+			return <CircularProgress className={classes.progress} size={30} />
+		}
 	}
 }
 

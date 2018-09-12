@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import Link from 'next/link'
 import GraphqlService from '../providers/graphql/graphql-service'
 import { formatTimeStamp } from '../utils/helper'
 
@@ -10,13 +8,11 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import classNames from 'classnames'
 import Avatar from '@material-ui/core/Avatar'
-import Chip from '@material-ui/core/Chip'
-import Button from '@material-ui/core/Button'
 import ImageContent from './ImageContent'
 
 const styles = {
 	chatRecord: {
-		margin: 10,
+		margin: 5,
 		display: 'flex',
 		alignItems: 'center'
 	},
@@ -78,7 +74,7 @@ class ChatRecord extends React.Component {
 			<div>
 				{this.props.chatDetail.sentByBot ? (
 					<div className={classNames(classes.chatRecord, classes.botChat)}>
-						<div className={classes.inline}>
+						<div className={classes.inline} style={{ paddingLeft: 20 }}>
 							<Paper
 								elevation={2}
 								className={classes.paper}
@@ -97,7 +93,7 @@ class ChatRecord extends React.Component {
 					</div>
 				) : (
 					<div className={classNames(classes.chatRecord, classes.userChat)}>
-						<div className={classes.inline}>
+						<div className={classes.inline} style={{ paddingRight: 20 }}>
 							<Paper
 								elevation={2}
 								className={classes.paper}

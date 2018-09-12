@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Button from '@material-ui/core/Button'
 import LatestChatProfile from './LatestChatProfile'
-import Router from 'next/router'
 import GraphqlService from '../providers/graphql/graphql-service'
 
 class ChatHomepage extends React.Component {
@@ -25,17 +23,15 @@ class ChatHomepage extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>ChatHomepage</h1>
-				<ul>
-					{this.state.latestChats &&
-						this.state.latestChats.map((chat, i) => (
-							<LatestChatProfile
-								key={i}
-								lineId={chat.lineId}
-								latestTime={chat.latestTime}
-							/>
-						))}
-				</ul>
+				<br />
+				{this.state.latestChats &&
+					this.state.latestChats.map((chat, i) => (
+						<LatestChatProfile
+							key={i}
+							lineId={chat.lineId}
+							latestTime={chat.latestTime}
+						/>
+					))}
 			</div>
 		)
 	}
